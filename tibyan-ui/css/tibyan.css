@@ -1,0 +1,17 @@
+
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font-family: inherit; }
+    @media print {
+      aside, [data-role="toolbar"] { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      @page { size: A4; margin: 10mm; }
+      html, body { background: #fff !important; }
+      #page-case > div { display: block !important; min-height: 0 !important; background: #fff !important; }
+      #page-case main { padding: 0 !important; display: block !important; }
+      [data-role="report"] { box-shadow: none !important; border-radius: 0 !important; margin: 0 auto !important;
+        width: 980px !important; max-width: none !important; transform-origin: top right; break-inside: avoid; page-break-inside: avoid; }
+      [data-role="report"] [data-decision] { display: none !important; }
+      [data-role="report"] * { break-inside: avoid; }
+    }
+  

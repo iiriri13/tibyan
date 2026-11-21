@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تِبيَان</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/tibyan.css">
+</head>
+<body>
+  <!--
+    كل صفحة داخل <section id="page-..."> ويظهر قسم واحد حسب الرابط (#main, #queue ...).
+    البيانات مكتوبة مباشرة داخل HTML، عدّلها في مكانها.
+    السكربت في الأسفل: التنقل بين الصفحات + أزرار قرار المختص + زر PDF.
+  -->
+  <div id="app">
+
+    <!-- ===== صفحة: تسجيل الدخول ===== -->
+    <section id="page-login" class="page" hidden>
+    <div dir="rtl" style="width: 100%; min-height: 100vh; display: flex; background: #F6F6FA; color: #1B1536; font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif; font-variant-numeric: tabular-nums; font-size: 14px">
+      <div style="flex: 0 0 340px; box-sizing: border-box; background: linear-gradient(160deg, #EEECFF, #D9D3FA); color: #2E2470; padding: 40px 32px; display: flex; flex-direction: column; justify-content: space-between; width: 340px">
+        <img src="logo.png" alt="تِبيَان Tibyan" style="height: 72px; width: auto; align-self: flex-start">
+        <span style="font-size: 13px; color: #4A3AAE">بيئة محاكاة · بيانات اصطناعية</span>
+      </div>
+      <div style="flex: 1 1 0; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 40px">
+        <div style="width: 440px; background: #ffffff; border-radius: 22px; padding: 36px; box-shadow: 0 4px 24px rgba(40,30,100,0.10); display: flex; flex-direction: column; gap: 20px">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <h2 style="margin: 0; font-size: 26px; font-weight: 700; color: #4A3AAE">تسجيل الدخول</h2>
+            <span style="color: #5F5A78">سجّل الدخول للوصول إلى لوحة مراقب الامتثال</span>
+          </div>
+          <label style="display: flex; flex-direction: column; gap: 8px; font-weight: 600">
+            <span>البريد الإلكتروني</span>
+            <input type="text" value="analyst@tibyan.demo" dir="ltr" readonly="" style="box-sizing: border-box; width: 100%; height: 48px; padding: 0 16px; border-radius: 12px; border: 1px solid #DDD8F2; background: #ffffff; font-size: 14px; color: #1B1536">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 8px; font-weight: 600">
+            <span>كلمة المرور</span>
+            <input type="password" value="demo-only" dir="ltr" readonly="" style="box-sizing: border-box; width: 100%; height: 48px; padding: 0 16px; border-radius: 12px; border: 1px solid #DDD8F2; background: #ffffff; font-size: 14px; color: #1B1536">
+          </label>
+          <a href="#main" style="display: flex; align-items: center; justify-content: center; height: 50px; border-radius: 999px; background: #5B49D6; color: #ffffff; font-weight: 700; font-size: 15px">دخول</a>
+          <span style="font-size: 12px; color: #5F5A78; line-height: 1.7">حسابات تجريبية فقط. لا تُدخل بيانات حقيقية في هذا النموذج.</span>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- ===== صفحة: مراقبة العمليات ===== -->
+    <section id="page-main" class="page" hidden>
+    <div dir="rtl" style="display: flex; flex-wrap: wrap; align-items: stretch; min-height: 100vh; background: #F6F6FA; color: #1B1536; font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif; font-variant-numeric: tabular-nums; font-size: 14px">
+      <aside style="flex: 0 0 260px; box-sizing: border-box; background: linear-gradient(160deg, #EEECFF, #D9D3FA); color: #2E2470; padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <div style="display: flex; flex-direction: column; gap: 4px; padding: 0 8px 24px; align-items: flex-start">
+          <img src="logo.png" alt="تِبيَان Tibyan" style="height: 64px; width: auto">
+          <span style="font-size: 12px; color: #4A3AAE; font-weight: 600">زد باي · مراقب الامتثال</span>
+        </div>
+        <a href="#main" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #5B49D6; color: #ffffff; font-weight: 600">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+          <span>مراقبة العمليات</span>
+        </a>
+        <a href="#queue" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="13" rx="3"></rect>
+            <path d="M16 12.5h2"></path>
+            <path d="M3 10h18"></path>
+          </svg>
+          <span>طابور الإيداعات</span>
+        </a>
+        <a href="#overview" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 21V4h11l-1.5 4L16 12H5"></path>
+          </svg>
+          <span>الحالات ذات الأولوية</span>
+        </a>
+        <div style="margin-top: auto; background: rgba(74,58,174,0.10); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+          <b style="font-weight: 600">السياسة: النسخة 1</b>
+          <span style="color: #4A3AAE">القرارات آلية لحظة التسجيل، وتُحفظ في سجل القرارات.</span>
+        </div>
+      </aside>
+      <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 48px; display: flex; flex-direction: column; gap: 24px">
+        <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+            <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #4A3AAE">مراقبة العمليات قبل الإيداع</h1>
+            <span style="color: #5F5A78">تِبيَان · زد باي · مراقب عمليات الامتثال</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+            <span style="padding: 6px 14px; border-radius: 999px; background: #EFEBFF; color: #4A3AAE; font-size: 13px; font-weight: 500">بيئة محاكاة · بيانات اصطناعية</span>
+            <span style="padding: 6px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #DDD8F2; color: #4A3AAE; font-size: 13px; font-weight: 500">السياسة: النسخة 1</span>
+          </div>
+        </header>
+        <section aria-label="مؤشرات الدفعة الحالية" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px">
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">عمليات الدفعة الحالية</b>
+            <span style="font-size: 40px; font-weight: 700; line-height: 1.1">148</span>
+            <span style="font-size: 13px; color: #5F5A78">كل طرق الدفع</span>
+          </div>
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">تمرير</b>
+            <span style="font-size: 40px; font-weight: 700; line-height: 1.1; color: #1D6B2E">136</span>
+            <span style="font-size: 13px; color: #5F5A78">جاهزة للإيداع</span>
+          </div>
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">تنبيه للمختص</b>
+            <span style="font-size: 40px; font-weight: 700; line-height: 1.1; color: #8A5A00">8</span>
+            <span style="font-size: 13px; color: #5F5A78">تحتاج متابعة</span>
+          </div>
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">تعليق</b>
+            <span style="font-size: 40px; font-weight: 700; line-height: 1.1; color: #B4232F">4</span>
+            <span style="font-size: 13px; color: #5F5A78">تنتظر المراجعة</span>
+          </div>
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">مبالغ معلقة (ريال)</b>
+            <span style="font-size: 36px; font-weight: 700; line-height: 1.2; color: #B4232F">48,950.00</span>
+            <span style="font-size: 13px; color: #5F5A78">محتفظ بها لدى زد باي</span>
+          </div>
+        </section>
+        <section style="padding: 24px; border-radius: 20px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 14px; min-width: 0">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px">
+            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #4A3AAE">العمليات الواردة</h2>
+            <span style="font-size: 13px; color: #5F5A78">عرض 11 من 148 عملية</span>
+          </div>
+          <span style="color: #5F5A78">كل عملية تأخذ قرارها لحظة تسجيلها، قبل موعد الإيداع</span>
+          <div style="overflow-x: auto">
+            <div style="min-width: 980px; display: flex; flex-direction: column">
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; background: #F6F6FA; border-radius: 12px; font-size: 12px; font-weight: 600; color: #5F5A78">
+                <span>الوقت</span>
+                <span>رقم العملية</span>
+                <span>التاجر</span>
+                <span>المشتري</span>
+                <span>المبلغ (ريال)</span>
+                <span>طريقة الدفع</span>
+                <span>درجة الخطر</span>
+                <span>القرار</span>
+                <span>عرض الحالة</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #BCB3DF">
+                <span>01:48</span>
+                <span style="font-weight: 600">TX-81042</span>
+                <span>متجر لمسة عطر</span>
+                <span>B-5520</span>
+                <span style="font-weight: 600">6,150.00</span>
+                <span>تقسيط</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 60px; background: #D92D3A"></span>
+                  </span>
+                  <b style="font-weight: 600">94</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                    تعليق
+                  </span>
+                </span>
+                <span>
+                  <a href="#case" style="display: inline-block; padding: 6px 12px; border-radius: 8px; color: #4a3aae; font-weight: 600; background-color: #F3F1FF; width: 69px; text-align: center">عرض الحالة</a>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #BCB3DF">
+                <span>01:47</span>
+                <span style="font-weight: 600">TX-81041</span>
+                <span>متجر لمسة عطر</span>
+                <span>B-5521</span>
+                <span style="font-weight: 600">6,150.00</span>
+                <span>تقسيط</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 59px; background: #D92D3A"></span>
+                  </span>
+                  <b style="font-weight: 600">92</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                    تعليق
+                  </span>
+                </span>
+                <span>
+                  <a href="#case" style="display: inline-block; padding: 6px 12px; border-radius: 8px; color: #4a3aae; font-weight: 600; background-color: #F3F1FF; width: 69px; text-align: center">عرض الحالة</a>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #BCB3DF">
+                <span>01:46</span>
+                <span style="font-weight: 600">TX-81040</span>
+                <span>متجر لمسة عطر</span>
+                <span>B-5522</span>
+                <span style="font-weight: 600">6,150.00</span>
+                <span>تقسيط</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 58px; background: #D92D3A"></span>
+                  </span>
+                  <b style="font-weight: 600">91</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                    تعليق
+                  </span>
+                </span>
+                <span>
+                  <a href="#case" style="display: inline-block; padding: 6px 12px; border-radius: 8px; color: #4a3aae; font-weight: 600; background-color: #F3F1FF; width: 69px; text-align: center">عرض الحالة</a>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #BCB3DF">
+                <span>01:45</span>
+                <span style="font-weight: 600">TX-81039</span>
+                <span>متجر رونق للعطور</span>
+                <span>B-4860</span>
+                <span style="font-weight: 600">3,200.00</span>
+                <span>بطاقة</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 43px; background: #D98E04"></span>
+                  </span>
+                  <b style="font-weight: 600">67</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FEF3C7; border: 1px solid #F4DE96; color: #8A5A00; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #D98E04; display: block"></span>
+                    تنبيه للمختص
+                  </span>
+                </span>
+                <span>
+                  <a href="#case" style="display: inline-block; padding: 6px 12px; border-radius: 8px; color: #4a3aae; font-weight: 600; background-color: #F3F1FF; width: 69px; text-align: center">عرض الحالة</a>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #ffffff">
+                <span>01:44</span>
+                <span style="font-weight: 600">TX-81038</span>
+                <span>متجر دار النور</span>
+                <span>B-2408</span>
+                <span style="font-weight: 600">490.00</span>
+                <span>مدى</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 8px; background: #2F9A3A"></span>
+                  </span>
+                  <b style="font-weight: 600">12</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    تمرير
+                  </span>
+                </span>
+                <span>
+                  <span style="color: #9A96AE">—</span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #ffffff">
+                <span>01:43</span>
+                <span style="font-weight: 600">TX-81037</span>
+                <span>متجر ورد الرياض</span>
+                <span>B-3199</span>
+                <span style="font-weight: 600">275.00</span>
+                <span>Apple Pay</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 5px; background: #2F9A3A"></span>
+                  </span>
+                  <b style="font-weight: 600">8</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    تمرير
+                  </span>
+                </span>
+                <span>
+                  <span style="color: #9A96AE">—</span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #ffffff">
+                <span>01:42</span>
+                <span style="font-weight: 600">TX-81036</span>
+                <span>متجر رونق للعطور</span>
+                <span>B-4811</span>
+                <span style="font-weight: 600">650.00</span>
+                <span>مدى</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 10px; background: #2F9A3A"></span>
+                  </span>
+                  <b style="font-weight: 600">16</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    تمرير
+                  </span>
+                </span>
+                <span>
+                  <span style="color: #9A96AE">—</span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #ffffff">
+                <span>01:41</span>
+                <span style="font-weight: 600">TX-81035</span>
+                <span>متجر دار النور</span>
+                <span>B-2412</span>
+                <span style="font-weight: 600">1,420.00</span>
+                <span>بطاقة</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 15px; background: #2F9A3A"></span>
+                  </span>
+                  <b style="font-weight: 600">24</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    تمرير
+                  </span>
+                </span>
+                <span>
+                  <span style="color: #9A96AE">—</span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #BCB3DF">
+                <span>01:40</span>
+                <span style="font-weight: 600">TX-81034</span>
+                <span>متجر آفاق التقنية</span>
+                <span>B-3910</span>
+                <span style="font-weight: 600">2,100.00</span>
+                <span>تقسيط</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 39px; background: #D98E04"></span>
+                  </span>
+                  <b style="font-weight: 600">61</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FEF3C7; border: 1px solid #F4DE96; color: #8A5A00; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #D98E04; display: block"></span>
+                    تنبيه للمختص
+                  </span>
+                </span>
+                <span>
+                  <a href="#case" style="display: inline-block; padding: 6px 12px; border-radius: 8px; color: #4a3aae; font-weight: 600; background-color: #F3F1FF; width: 69px; text-align: center">عرض الحالة</a>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #ffffff">
+                <span>01:39</span>
+                <span style="font-weight: 600">TX-81033</span>
+                <span>متجر ورد الرياض</span>
+                <span>B-3121</span>
+                <span style="font-weight: 600">180.00</span>
+                <span>Apple Pay</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 3px; background: #2F9A3A"></span>
+                  </span>
+                  <b style="font-weight: 600">5</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    تمرير
+                  </span>
+                </span>
+                <span>
+                  <span style="color: #9A96AE">—</span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 64px 96px 1.4fr 80px 104px 104px 140px 150px 84px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; border-radius: 15px; background-color: #ffffff">
+                <span>01:38</span>
+                <span style="font-weight: 600">TX-81032</span>
+                <span>متجر دار النور</span>
+                <span>B-2401</span>
+                <span style="font-weight: 600">890.00</span>
+                <span>مدى</span>
+                <span style="display: flex; align-items: center; gap: 8px">
+                  <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                    <span style="display: block; height: 6px; border-radius: 3px; width: 12px; background: #2F9A3A"></span>
+                  </span>
+                  <b style="font-weight: 600">19</b>
+                </span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    تمرير
+                  </span>
+                </span>
+                <span>
+                  <span style="color: #9A96AE">—</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: #5F5A78">آخر تحديث 01:48:32 · القرارات آلية وفق السياسة: النسخة 1</span>
+        </section>
+      </main>
+    </div>
+    </section>
+
+    <!-- ===== صفحة: طابور الإيداعات ===== -->
+    <section id="page-queue" class="page" hidden>
+    <div dir="rtl" style="display: flex; flex-wrap: wrap; align-items: stretch; min-height: 100vh; background: #F6F6FA; color: #1B1536; font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif; font-variant-numeric: tabular-nums; font-size: 14px">
+      <aside style="flex: 0 0 260px; box-sizing: border-box; background: linear-gradient(160deg, #EEECFF, #D9D3FA); color: #2E2470; padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <div style="display: flex; flex-direction: column; gap: 4px; padding: 0 8px 24px; align-items: flex-start">
+          <img src="logo.png" alt="تِبيَان Tibyan" style="height: 64px; width: auto">
+          <span style="font-size: 12px; color: #4A3AAE; font-weight: 600">زد باي · مراقب الامتثال</span>
+        </div>
+        <a href="#main" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+          <span>مراقبة العمليات</span>
+        </a>
+        <a href="#queue" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #5B49D6; color: #ffffff; font-weight: 600">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="13" rx="3"></rect>
+            <path d="M16 12.5h2"></path>
+            <path d="M3 10h18"></path>
+          </svg>
+          <span>طابور الإيداعات</span>
+        </a>
+        <a href="#overview" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 21V4h11l-1.5 4L16 12H5"></path>
+          </svg>
+          <span>الحالات ذات الأولوية</span>
+        </a>
+        <div style="margin-top: auto; background: rgba(74,58,174,0.10); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+          <b style="font-weight: 600">السياسة: النسخة 1</b>
+          <span style="color: #4A3AAE">القرارات آلية لحظة التسجيل، وتُحفظ في سجل القرارات.</span>
+        </div>
+      </aside>
+      <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 48px; display: flex; flex-direction: column; gap: 24px">
+        <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+            <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #4A3AAE">طابور الإيداعات</h1>
+            <span style="color: #5F5A78">موعد الإيداع القادم 02:00 · المبلغ المعلق يبقى في زد باي لين يراجعه المختص</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+            <span style="padding: 6px 14px; border-radius: 999px; background: #EFEBFF; color: #4A3AAE; font-size: 13px; font-weight: 500">بيئة محاكاة · بيانات اصطناعية</span>
+            <span style="padding: 6px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #DDD8F2; color: #4A3AAE; font-size: 13px; font-weight: 500">السياسة: النسخة 1</span>
+          </div>
+        </header>
+        <section style="padding: 24px; border-radius: 20px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 14px; min-width: 0">
+          <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #4A3AAE">طابور الإيداعات</h2>
+          <span style="color: #5F5A78">موعد الإيداع القادم: 02:00 · المبلغ المعلق يبقى في زد باي لين يراجعه المختص</span>
+          <div style="overflow-x: auto">
+            <div style="min-width: 860px; display: flex; flex-direction: column">
+              <div style="display: grid; grid-template-columns: 1.5fr 100px 90px 130px 130px 140px 140px; gap: 12px; align-items: center; padding: 10px 14px; background: #F6F6FA; border-radius: 12px; font-size: 12px; font-weight: 600; color: #5F5A78">
+                <span>التاجر</span>
+                <span>رقم التاجر</span>
+                <span>عدد العمليات</span>
+                <span>الإجمالي (ريال)</span>
+                <span>المعلق (ريال)</span>
+                <span>صافي الإيداع (ريال)</span>
+                <span>حالة الإيداع</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1.5fr 100px 90px 130px 130px 140px 140px; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; background: #F3F0FF">
+                <b style="font-weight: 600">متجر لمسة عطر</b>
+                <span>M-1042</span>
+                <span>3</span>
+                <span>18,450.00</span>
+                <span style="color: #B4232F">18,450.00</span>
+                <span style="font-weight: 600">0.00</span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                    معلّق
+                  </span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1.5fr 100px 90px 130px 130px 140px 140px; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; background: #ffffff">
+                <b style="font-weight: 600">متجر رونق للعطور</b>
+                <span>M-1088</span>
+                <span>14</span>
+                <span>12,300.00</span>
+                <span style="color: #B4232F">3,200.00</span>
+                <span style="font-weight: 600">9,100.00</span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FEF3C7; border: 1px solid #F4DE96; color: #8A5A00; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #D98E04; display: block"></span>
+                    يُودع جزئياً
+                  </span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1.5fr 100px 90px 130px 130px 140px 140px; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; background: #ffffff">
+                <b style="font-weight: 600">متجر دار النور</b>
+                <span>M-1015</span>
+                <span>22</span>
+                <span>19,870.00</span>
+                <span style="color: #1B1536">0.00</span>
+                <span style="font-weight: 600">19,870.00</span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    يُودع كامل
+                  </span>
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1.5fr 100px 90px 130px 130px 140px 140px; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px; background: #ffffff">
+                <b style="font-weight: 600">متجر ورد الرياض</b>
+                <span>M-1029</span>
+                <span>18</span>
+                <span>8,640.00</span>
+                <span style="color: #1B1536">0.00</span>
+                <span style="font-weight: 600">8,640.00</span>
+                <span>
+                  <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #E6F7E9; border: 1px solid #BFE8C8; color: #1D6B2E; font-weight: 600; font-size: 12px">
+                    <span style="width: 7px; height: 7px; border-radius: 4px; background: #2F9A3A; display: block"></span>
+                    يُودع كامل
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    </section>
+
+    <!-- ===== صفحة: الحالات ذات الأولوية ===== -->
+    <section id="page-overview" class="page" hidden>
+    <div dir="rtl" style="display: flex; flex-wrap: wrap; align-items: stretch; min-height: 100vh; background: #F6F6FA; color: #1B1536; font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif; font-variant-numeric: tabular-nums; font-size: 14px">
+      <aside style="flex: 0 0 260px; box-sizing: border-box; background: linear-gradient(160deg, #EEECFF, #D9D3FA); color: #2E2470; padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <div style="display: flex; flex-direction: column; gap: 4px; padding: 0 8px 24px; align-items: flex-start">
+          <img src="logo.png" alt="تِبيَان Tibyan" style="height: 64px; width: auto">
+          <span style="font-size: 12px; color: #4A3AAE; font-weight: 600">زد باي · مراقب الامتثال</span>
+        </div>
+        <a href="#main" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+          <span>مراقبة العمليات</span>
+        </a>
+        <a href="#queue" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="13" rx="3"></rect>
+            <path d="M16 12.5h2"></path>
+            <path d="M3 10h18"></path>
+          </svg>
+          <span>طابور الإيداعات</span>
+        </a>
+        <a href="#overview" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #5B49D6; color: #ffffff; font-weight: 600">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 21V4h11l-1.5 4L16 12H5"></path>
+          </svg>
+          <span>الحالات ذات الأولوية</span>
+        </a>
+        <div style="margin-top: auto; background: rgba(74,58,174,0.10); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+          <b style="font-weight: 600">السياسة: النسخة 1</b>
+          <span style="color: #4A3AAE">القرارات آلية لحظة التسجيل، وتُحفظ في سجل القرارات.</span>
+        </div>
+      </aside>
+      <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 48px; display: flex; flex-direction: column; gap: 24px">
+        <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+            <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #4A3AAE">الحالات ذات الأولوية</h1>
+            <span style="color: #5F5A78">مرتبة حسب المبلغ المعرّض وقرب موعد الإيداع 02:00</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+            <span style="padding: 6px 14px; border-radius: 999px; background: #EFEBFF; color: #4A3AAE; font-size: 13px; font-weight: 500">بيئة محاكاة · بيانات اصطناعية</span>
+            <span style="padding: 6px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #DDD8F2; color: #4A3AAE; font-size: 13px; font-weight: 500">السياسة: النسخة 1</span>
+          </div>
+        </header>
+        <section aria-label="ملخص" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">حالات مفتوحة</b>
+            <span style="font-size: 40px; font-weight: 700; line-height: 1.1">3</span>
+          </div>
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">مبالغ معلقة (ريال)</b>
+            <span style="font-size: 36px; font-weight: 700; line-height: 1.2; color: #B4232F">48,950.00</span>
+          </div>
+          <div style="padding: 20px 22px; border-radius: 18px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-direction: column; gap: 10px">
+            <b style="font-size: 16px; font-weight: 700; color: #4A3AAE">الوقت المتبقي</b>
+            <span style="font-size: 40px; font-weight: 700; line-height: 1.1">12 دقيقة</span>
+          </div>
+        </section>
+        <section style="display: flex; flex-direction: column; gap: 16px">
+          <article style="padding: 24px; border-radius: 20px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-wrap: wrap; align-items: center; gap: 20px; border-right: 6px solid #D92D3A">
+            <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+                <b style="font-size: 18px; font-weight: 700; color: #4A3AAE">CASE-1042</b>
+                <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                  <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                  تعليق
+                </span>
+              </div>
+              <b style="font-weight: 600">حلقة تواطؤ محتملة</b>
+              <span style="color: #5F5A78">متجر لمسة عطر (M-1042) · 3 عمليات تقسيط · جهاز مشترك D-77A</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 120px">
+              <span style="font-size: 12px; color: #5F5A78">المبلغ المعرّض (ريال)</span>
+              <b style="font-size: 22px; font-weight: 700">18,450.00</b>
+            </div>
+            <a href="#case" style="padding: 12px 22px; border-radius: 999px; color: #ffffff; font-weight: 700; min-height: 20px; background-color: #BCB3DF">فتح الحالة</a>
+          </article>
+          <article style="padding: 24px; border-radius: 20px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-wrap: wrap; align-items: center; gap: 20px; border-right: 6px solid #D98E04">
+            <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+                <b style="font-size: 18px; font-weight: 700; color: #4A3AAE">CASE-1041</b>
+                <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FEF3C7; border: 1px solid #F4DE96; color: #8A5A00; font-weight: 600; font-size: 12px">
+                  <span style="width: 7px; height: 7px; border-radius: 4px; background: #D98E04; display: block"></span>
+                  تنبيه للمختص
+                </span>
+              </div>
+              <b style="font-weight: 600">عملية مرتفعة القيمة</b>
+              <span style="color: #5F5A78">متجر رونق للعطور (M-1088) · عملية بطاقة · درجة الخطر 67</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 120px">
+              <span style="font-size: 12px; color: #5F5A78">المبلغ المعرّض (ريال)</span>
+              <b style="font-size: 22px; font-weight: 700">3,200.00</b>
+            </div>
+            <a href="#case" style="padding: 12px 22px; border-radius: 999px; color: #ffffff; font-weight: 700; min-height: 20px; background-color: #BCB3DF">فتح الحالة</a>
+          </article>
+          <article style="padding: 24px; border-radius: 20px; background: #ffffff; box-shadow: 0 2px 10px rgba(40,30,100,0.07); display: flex; flex-wrap: wrap; align-items: center; gap: 20px; border-right: 6px solid #D98E04">
+            <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+                <b style="font-size: 18px; font-weight: 700; color: #4A3AAE">CASE-1039</b>
+                <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FEF3C7; border: 1px solid #F4DE96; color: #8A5A00; font-weight: 600; font-size: 12px">
+                  <span style="width: 7px; height: 7px; border-radius: 4px; background: #D98E04; display: block"></span>
+                  تنبيه للمختص
+                </span>
+              </div>
+              <b style="font-weight: 600">تقسيط بدرجة خطر متوسطة</b>
+              <span style="color: #5F5A78">متجر آفاق التقنية · عملية تقسيط · درجة الخطر 61</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 120px">
+              <span style="font-size: 12px; color: #5F5A78">المبلغ المعرّض (ريال)</span>
+              <b style="font-size: 22px; font-weight: 700">2,100.00</b>
+            </div>
+            <a href="#case" style="padding: 12px 22px; border-radius: 999px; color: #ffffff; font-weight: 700; min-height: 20px; background-color: #BCB3DF">فتح الحالة</a>
+          </article>
+        </section>
+      </main>
+    </div>
+    </section>
+
+    <!-- ===== صفحة: تقرير الحالة ===== -->
+    <section id="page-case" class="page" hidden>
+    <div dir="rtl" style="display: flex; flex-wrap: wrap; align-items: stretch; min-height: 100vh; background: #F6F6FA; color: #1B1536; font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif; font-variant-numeric: tabular-nums; font-size: 14px">
+      <aside style="flex: 0 0 260px; box-sizing: border-box; background: linear-gradient(160deg, #EEECFF, #D9D3FA); color: #2E2470; padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <div style="display: flex; flex-direction: column; gap: 4px; padding: 0 8px 24px; align-items: flex-start">
+          <img src="logo.png" alt="تِبيَان Tibyan" style="height: 64px; width: auto">
+          <span style="font-size: 12px; color: #4A3AAE; font-weight: 600">زد باي · مراقب الامتثال</span>
+        </div>
+        <a href="#main" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+          <span>مراقبة العمليات</span>
+        </a>
+        <a href="#queue" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="13" rx="3"></rect>
+            <path d="M16 12.5h2"></path>
+            <path d="M3 10h18"></path>
+          </svg>
+          <span>طابور الإيداعات</span>
+        </a>
+        <a href="#overview" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 21V4h11l-1.5 4L16 12H5"></path>
+          </svg>
+          <span>الحالات ذات الأولوية</span>
+        </a>
+        <div style="margin-top: auto; background: rgba(74,58,174,0.10); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+          <b style="font-weight: 600">السياسة: النسخة 1</b>
+          <span style="color: #4A3AAE">القرارات آلية لحظة التسجيل، وتُحفظ في سجل القرارات.</span>
+        </div>
+      </aside>
+      <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 48px; display: flex; flex-direction: column; gap: 20px">
+        <div style="max-width: 980px; width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px" data-role="toolbar">
+          <a href="#main" style="display: inline-flex; text-decoration: none; align-items: center; gap: 8px; padding: 10px 18px; min-height: 44px; border-radius: 999px; border: 1px solid #5B49D6; background: #ffffff; color: #5B49D6; font-weight: 700; font-size: 14px; cursor: pointer" data-role="back">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M13 6l6 6-6 6"></path>
+            </svg>
+            العودة إلى مراقبة العمليات
+          </a>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+            <span aria-live="polite" style="font-size: 13px; color: #5F5A78"></span>
+            <button type="button" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; min-height: 44px; border-radius: 999px; border: 0; background: #5B49D6; color: #ffffff; font-weight: 700; font-size: 14px; cursor: pointer" data-action="print">
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v11"></path>
+                <path d="M7 11l5 5 5-5"></path>
+                <path d="M5 20h14"></path>
+              </svg>
+              تنزيل التقرير PDF
+            </button>
+          </div>
+        </div>
+        <article data-role="report" style="max-width: 980px; width: 100%; box-sizing: border-box; margin: 0 auto; background: #ffffff; border-radius: 10px; border-top: 6px solid #5B49D6; box-shadow: 0 4px 24px rgba(40,30,100,0.10); padding: 44px 52px 36px; display: flex; flex-direction: column; gap: 28px">
+          <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 3px solid #5B49D6">
+            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+              <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #4A3AAE">تقرير حالة اشتباه</h1>
+              <span style="color: #5F5A78">CASE-1042 · حلقة تواطؤ محتملة</span>
+            </div>
+            <img src="logo.png" alt="تِبيَان Tibyan" style="height: 56px; width: auto">
+          </header>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px 24px; background: #F6F6FA; border-radius: 10px; padding: 16px 20px; font-size: 13px">
+            <div>
+              <span style="color: #5F5A78">رقم التقرير:</span>
+              <b style="font-weight: 600">RPT-1042-01</b>
+            </div>
+            <div>
+              <span style="color: #5F5A78">تاريخ الإصدار:</span>
+              <b style="font-weight: 600">2026-11-20 · 01:49</b>
+            </div>
+            <div>
+              <span style="color: #5F5A78">المتجر:</span>
+              <b style="font-weight: 600">متجر لمسة عطر (M-1042)</b>
+            </div>
+            <div>
+              <span style="color: #5F5A78">عمر المتجر:</span>
+              <b style="font-weight: 600">9 أيام</b>
+            </div>
+            <div>
+              <span style="color: #5F5A78">العمليات المرتبطة:</span>
+              <b style="font-weight: 600">3 عمليات تقسيط</b>
+            </div>
+            <div>
+              <span style="color: #5F5A78">إجمالي المبلغ:</span>
+              <b style="font-weight: 600">18,450.00 ريال</b>
+            </div>
+            <div>
+              <span style="color: #5F5A78">السياسة المطبقة:</span>
+              <b style="font-weight: 600">النسخة 1 · القاعدة 3</b>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px">
+              <span style="color: #5F5A78">حالة التقرير:</span>
+              <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 700; font-size: 12px" data-role="status">
+                <span style="width: 8px; height: 8px; border-radius: 4px; background: #D92D3A; display: block" data-role="status-dot"></span>
+                معلّق آلياً · بانتظار قرارك
+              </span>
+            </div>
+          </div>
+          <section style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #4A3AAE; padding-bottom: 8px; border-bottom: 2px solid #DDD8F2">1. ملخص تنفيذي</h2>
+            <span style="line-height: 1.9">المتجر سجل 3 عمليات تقسيط خلال دقيقتين، وكل المشترين مرتبطين بصاحب المتجر: الأول بنفس الهوية ونفس الآيبان، والاثنان الباقيان دخلا من جهازه. مجموع المبلغ 18,450.00 ريال، ولم يُودع بعد.</span>
+            <span style="font-size: 12px; color: #5F5A78">مولّد من الأدلة في هذه الصفحة فقط، والقرار النهائي للمختص.</span>
+          </section>
+          <section style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #4A3AAE; padding-bottom: 8px; border-bottom: 2px solid #DDD8F2">2. شبكة الأطراف</h2>
+            <div style="overflow-x: auto">
+              <div style="position: relative; width: 640px; height: 380px; margin: 0 auto">
+                <svg aria-hidden="true" width="640" height="380" viewBox="0 0 640 380" style="position: absolute; left: 0; top: 0; width: 640px; height: 380px; fill: none; stroke-linecap: round">
+                  <path d="M 160 42 L 480 42" stroke="#D92D3A" stroke-width="3"></path>
+                  <path d="M 95 74 L 270 150" stroke="#D92D3A" stroke-width="3"></path>
+                  <path d="M 545 74 L 370 150" stroke="#9AA0AE" stroke-width="3"></path>
+                  <path d="M 320 220 L 320 300" stroke="#D98E04" stroke-width="3" stroke-dasharray="7 6"></path>
+                  <path d="M 230 332 L 160 332" stroke="#D98E04" stroke-width="3" stroke-dasharray="7 6"></path>
+                  <path d="M 410 332 L 480 332" stroke="#D98E04" stroke-width="3" stroke-dasharray="7 6"></path>
+                </svg>
+                <div style="position: absolute; left: 10px; top: 10px; width: 150px; height: 64px; box-sizing: border-box; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 12px; background: #FDEEF0; border: 2px solid #D92D3A; color: #1B1536">
+                  <b style="font-size: 14px; font-weight: 700; line-height: 1.5">المشتري B-5520</b>
+                  <span style="font-size: 12px; opacity: 0.85">هوية ****4471</span>
+                </div>
+                <div style="position: absolute; left: 480px; top: 10px; width: 150px; height: 64px; box-sizing: border-box; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 12px; background: #FDEEF0; border: 2px solid #D92D3A; color: #1B1536">
+                  <b style="font-size: 14px; font-weight: 700; line-height: 1.5">آيبان ****8890</b>
+                  <span style="font-size: 12px; opacity: 0.85">حساب الإيداع</span>
+                </div>
+                <div style="position: absolute; left: 230px; top: 150px; width: 180px; height: 70px; box-sizing: border-box; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 12px; background: #1B1536; border: 2px solid #1B1536; color: #ffffff">
+                  <b style="font-size: 14px; font-weight: 700; line-height: 1.5">متجر لمسة عطر</b>
+                  <span style="font-size: 12px; opacity: 0.85">المدير: هوية ****4471</span>
+                </div>
+                <div style="position: absolute; left: 10px; top: 300px; width: 150px; height: 64px; box-sizing: border-box; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 12px; background: #FFF8E6; border: 2px solid #D98E04; color: #1B1536">
+                  <b style="font-size: 14px; font-weight: 700; line-height: 1.5">المشتري B-5521</b>
+                  <span style="font-size: 12px; opacity: 0.85">حساب جديد</span>
+                </div>
+                <div style="position: absolute; left: 230px; top: 300px; width: 180px; height: 64px; box-sizing: border-box; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 12px; background: #FFF8E6; border: 2px solid #D98E04; color: #1B1536">
+                  <b style="font-size: 14px; font-weight: 700; line-height: 1.5">جهاز D-77A</b>
+                  <span style="font-size: 12px; opacity: 0.85">دخل منه صاحب المتجر</span>
+                </div>
+                <div style="position: absolute; left: 480px; top: 300px; width: 150px; height: 64px; box-sizing: border-box; padding: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 12px; background: #FFF8E6; border: 2px solid #D98E04; color: #1B1536">
+                  <b style="font-size: 14px; font-weight: 700; line-height: 1.5">المشتري B-5522</b>
+                  <span style="font-size: 12px; opacity: 0.85">حساب جديد</span>
+                </div>
+                <div style="position: absolute; left: 280px; top: 32px; width: 80px; height: 20px; display: flex; align-items: center; justify-content: center; background: #ffffff; font-size: 12px; font-weight: 600; color: #D92D3A">صاحب الآيبان</div>
+                <div style="position: absolute; left: 142px; top: 102px; width: 80px; height: 20px; display: flex; align-items: center; justify-content: center; background: #ffffff; font-size: 12px; font-weight: 600; color: #D92D3A">نفس الهوية</div>
+                <div style="position: absolute; left: 418px; top: 102px; width: 80px; height: 20px; display: flex; align-items: center; justify-content: center; background: #ffffff; font-size: 12px; font-weight: 600; color: #5F5A78">آيبان الإيداع</div>
+                <div style="position: absolute; left: 280px; top: 250px; width: 80px; height: 20px; display: flex; align-items: center; justify-content: center; background: #ffffff; font-size: 12px; font-weight: 600; color: #D98E04">جهاز المالك</div>
+                <div style="position: absolute; left: 155px; top: 306px; width: 80px; height: 20px; display: flex; align-items: center; justify-content: center; background: #ffffff; font-size: 12px; font-weight: 600; color: #D98E04">نفس الجهاز</div>
+                <div style="position: absolute; left: 405px; top: 306px; width: 80px; height: 20px; display: flex; align-items: center; justify-content: center; background: #ffffff; font-size: 12px; font-weight: 600; color: #D98E04">نفس الجهاز</div>
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 13px; color: #5F5A78; justify-content: center">
+              <span style="display: inline-flex; align-items: center; gap: 8px">
+                <svg aria-hidden="true" width="32" height="6" viewBox="0 0 32 6">
+                  <path d="M0 3 H32" stroke="#D92D3A" stroke-width="3"></path>
+                </svg>
+                رابط قوي (إثبات)
+              </span>
+              <span style="display: inline-flex; align-items: center; gap: 8px">
+                <svg aria-hidden="true" width="32" height="6" viewBox="0 0 32 6">
+                  <path d="M0 3 H32" stroke="#D98E04" stroke-width="3" stroke-dasharray="6 4"></path>
+                </svg>
+                رابط متوسط
+              </span>
+              <span style="display: inline-flex; align-items: center; gap: 8px">
+                <svg aria-hidden="true" width="32" height="6" viewBox="0 0 32 6">
+                  <path d="M0 3 H32" stroke="#9AA0AE" stroke-width="3"></path>
+                </svg>
+                علاقة ضعيفة
+              </span>
+            </div>
+          </section>
+          <section style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #4A3AAE; padding-bottom: 8px; border-bottom: 2px solid #DDD8F2">3. أسباب الاشتباه</h2>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+              <span style="line-height: 1.7; min-width: 0">هوية المشتري B-5520 هي نفس هوية مدير المتجر</span>
+              <span style="display: inline-flex; flex: none; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                قوية
+              </span>
+            </div>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+              <span style="line-height: 1.7; min-width: 0">آيبان إيداع المتجر مسجل باسم المشتري B-5520</span>
+              <span style="display: inline-flex; flex: none; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                قوية
+              </span>
+            </div>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+              <span style="line-height: 1.7; min-width: 0">المشتريان B-5521 وB-5522 دخلوا من جهاز صاحب المتجر D-77A</span>
+              <span style="display: inline-flex; flex: none; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FEF3C7; border: 1px solid #F4DE96; color: #8A5A00; font-weight: 600; font-size: 12px">
+                <span style="width: 7px; height: 7px; border-radius: 4px; background: #D98E04; display: block"></span>
+                متوسطة
+              </span>
+            </div>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+              <span style="line-height: 1.7; min-width: 0">عمر المتجر 9 أيام</span>
+              <span style="display: inline-flex; flex: none; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #EFEBFF; border: 1px solid #DDD8F2; color: #4A3AAE; font-weight: 600; font-size: 12px">
+                <span style="width: 7px; height: 7px; border-radius: 4px; background: #9A96AE; display: block"></span>
+                ضعيفة
+              </span>
+            </div>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+              <span style="line-height: 1.7; min-width: 0">كل عمليات المتجر بالتقسيط</span>
+              <span style="display: inline-flex; flex: none; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #EFEBFF; border: 1px solid #DDD8F2; color: #4A3AAE; font-weight: 600; font-size: 12px">
+                <span style="width: 7px; height: 7px; border-radius: 4px; background: #9A96AE; display: block"></span>
+                ضعيفة
+              </span>
+            </div>
+            <div style="padding: 12px 14px; border-radius: 12px; background: #EFEBFF; color: #4A3AAE; line-height: 1.7; font-size: 13px">القاعدة المطبقة: إشارة قوية وحدة تكفي للتعليق (القاعدة 3 في السياسة).</div>
+          </section>
+          <section style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #4A3AAE; padding-bottom: 8px; border-bottom: 2px solid #DDD8F2">4. العمليات المرتبطة</h2>
+            <div style="overflow-x: auto">
+              <div style="min-width: 760px; display: flex; flex-direction: column">
+                <div style="display: grid; grid-template-columns: 110px 70px 100px 120px 110px 150px 130px; gap: 12px; padding: 10px 14px; background: #F6F6FA; border-radius: 12px; font-size: 12px; font-weight: 600; color: #5F5A78">
+                  <span>رقم العملية</span>
+                  <span>الوقت</span>
+                  <span>المشتري</span>
+                  <span>المبلغ (ريال)</span>
+                  <span>طريقة الدفع</span>
+                  <span>درجة الخطر</span>
+                  <span>القرار</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 110px 70px 100px 120px 110px 150px 130px; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px">
+                  <b style="font-weight: 600">TX-81042</b>
+                  <span>01:48</span>
+                  <span>B-5520</span>
+                  <b style="font-weight: 600">6,150.00</b>
+                  <span>تقسيط</span>
+                  <span style="display: flex; align-items: center; gap: 8px">
+                    <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                      <span style="display: block; height: 6px; border-radius: 3px; width: 60px; background: #D92D3A"></span>
+                    </span>
+                    <b style="font-weight: 600">94</b>
+                  </span>
+                  <span>
+                    <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                      <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                      تعليق
+                    </span>
+                  </span>
+                </div>
+                <div style="display: grid; grid-template-columns: 110px 70px 100px 120px 110px 150px 130px; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px">
+                  <b style="font-weight: 600">TX-81041</b>
+                  <span>01:47</span>
+                  <span>B-5521</span>
+                  <b style="font-weight: 600">6,150.00</b>
+                  <span>تقسيط</span>
+                  <span style="display: flex; align-items: center; gap: 8px">
+                    <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                      <span style="display: block; height: 6px; border-radius: 3px; width: 59px; background: #D92D3A"></span>
+                    </span>
+                    <b style="font-weight: 600">92</b>
+                  </span>
+                  <span>
+                    <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                      <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                      تعليق
+                    </span>
+                  </span>
+                </div>
+                <div style="display: grid; grid-template-columns: 110px 70px 100px 120px 110px 150px 130px; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid #ECEAF5; font-size: 13px">
+                  <b style="font-weight: 600">TX-81040</b>
+                  <span>01:46</span>
+                  <span>B-5522</span>
+                  <b style="font-weight: 600">6,150.00</b>
+                  <span>تقسيط</span>
+                  <span style="display: flex; align-items: center; gap: 8px">
+                    <span style="width: 64px; height: 6px; border-radius: 3px; background: #ECEAF5; display: block">
+                      <span style="display: block; height: 6px; border-radius: 3px; width: 58px; background: #D92D3A"></span>
+                    </span>
+                    <b style="font-weight: 600">91</b>
+                  </span>
+                  <span>
+                    <span style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: #FDE8EA; border: 1px solid #F6BFC4; color: #B4232F; font-weight: 600; font-size: 12px">
+                      <span style="width: 7px; height: 7px; border-radius: 4px; background: #D92D3A; display: block"></span>
+                      تعليق
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #4A3AAE; padding-bottom: 8px; border-bottom: 2px solid #DDD8F2">5. قرار المختص</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <button type="button" style="padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; min-height: 44px; font-family: inherit; border: 0; background: #D92D3A; color: #ffffff" data-decision="hold">تعليق الإيداع</button>
+              <button type="button" style="padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; min-height: 44px; font-family: inherit; border: 1px solid #2F9A3A; background: #ffffff; color: #1D6B2E" data-decision="pass">تمرير</button>
+              <button type="button" style="padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; min-height: 44px; font-family: inherit; border: 1px solid #5B49D6; background: #ffffff; color: #5B49D6" data-decision="escalate">تصعيد</button>
+            </div>
+            <div aria-live="polite" style="padding: 12px 16px; border-radius: 14px; background: #F6F6FA; font-size: 13px; line-height: 1.7" data-role="decision-text">القرار يسجَّل في سجل القرارات مع وقت المراجعة ومعرّف المختص. التعليق الآلي قائم حتى تقرر.</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 28px; margin-top: 18px">
+              <div style="flex: 1 1 160px; border-top: 1px solid #5F5A78; padding-top: 6px; font-size: 12px; color: #5F5A78">اسم المختص</div>
+              <div style="flex: 1 1 160px; border-top: 1px solid #5F5A78; padding-top: 6px; font-size: 12px; color: #5F5A78">القرار</div>
+              <div style="flex: 1 1 160px; border-top: 1px solid #5F5A78; padding-top: 6px; font-size: 12px; color: #5F5A78">التوقيع والتاريخ</div>
+            </div>
+          </section>
+          <footer style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid #DDD8F2; padding-top: 12px; font-size: 12px; color: #5F5A78">
+            <span>مولّد من الأدلة في هذه الصفحة فقط، والقرار النهائي للمختص.</span>
+            <span>تِبيَان · زد باي · بيئة محاكاة · بيانات اصطناعية</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+    </section>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
